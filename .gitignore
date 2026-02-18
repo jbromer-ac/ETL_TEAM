@@ -1,0 +1,27 @@
+# Build outputs
+bin/
+obj/
+*.user
+
+# Visual Studio
+.vs/
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# Rider
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Secrets — never commit real credentials
+appsettings.local.json
+appsettings.*.local.json
+secrets.json
