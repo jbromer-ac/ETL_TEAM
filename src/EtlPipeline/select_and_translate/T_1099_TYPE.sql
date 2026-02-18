@@ -1,0 +1,23 @@
+--THIS CREATES 1099 TYPE LOOKUP
+IF NOT EXISTS (
+    SELECT 1
+    FROM INFORMATION_SCHEMA.TABLES
+    WHERE TABLE_SCHEMA = 'MAP'
+      AND TABLE_NAME   = 'T_1099_TYPE'
+)
+BEGIN
+    CREATE TABLE MAP.T_1099_TYPE
+    (
+        FORM_TYPE_1099_DESC VARCHAR(50)  NOT NULL,
+        FORM_TYPE_1099_CODE VARCHAR(10)  NOT NULL,
+        CONSTRAINT PK_T_1099_TYPE PRIMARY KEY (FORM_TYPE_1099_DESC)
+    );
+    INSERT INTO MAP.T_1099_TYPE (FORM_TYPE_1099_DESC, FORM_TYPE_1099_CODE)
+VALUES
+    ('Non-employee comp', 'NEC'),
+    ('Rents',             'R'),
+    ('Interest',          'INT'),
+    ('Dividends',         'DIV'),
+    ('',                  '');
+END;
+GO
