@@ -1,5 +1,6 @@
 using EtlPipeline.Connections;
 using EtlPipeline.Infrastructure;
+using EtlPipeline.Sources.SageIntacct;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -10,6 +11,8 @@ var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddSingleton<SqlConnectionVerifier>();
 builder.Services.AddSingleton<SchemaInitializer>();
 builder.Services.AddSingleton<SqlScriptRunner>();
+builder.Services.Configure<SageIntacctSettings>(builder.Configuration.GetSection("SageIntacct"));
+builder.Services.AddSingleton<SageIntacctClient>();
 
 var host = builder.Build();
 
@@ -30,5 +33,9 @@ await scriptRunner.RunFolderAsync(Path.Combine(AppContext.BaseDirectory, "select
 
 // Step 4: Run transform scripts
 await scriptRunner.RunFolderAsync(Path.Combine(AppContext.BaseDirectory, "transform"));
+
+// Step 5: Obtain Sage Intacct session
+var intacct = host.Services.GetRequiredService<SageIntacctClient>();
+await intacct.GetSessionAsync();
 
 logger.LogInformation("Initialization complete.");
