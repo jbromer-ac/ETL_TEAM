@@ -17,7 +17,7 @@ public class SqlConnectionVerifier
 
     public async Task VerifyAllAsync(CancellationToken ct = default)
     {
-        await VerifyAsync("SourceSqlServer", "Source SQL Server (silverlining)", ct);
+        await VerifyAsync("SourceSqlServer", "Source SQL Server (GoLive-Silverlining)", ct);
         await VerifyAsync("DestinationSqlServer", "Destination SQL Server", ct);
         await VerifyAsync("AzureSqlPaas", "Azure SQL PaaS", ct);
     }
